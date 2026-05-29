@@ -1307,23 +1307,8 @@
     else this.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
   });
 
-  // ── Airtable 설정 ──
-  const AIRTABLE_TOKEN    = atob('cGF0VEU2SUVFd1hDNFVEcmcuNjcxNjhhNzYwM2JlYTI3MTQ3NDhlYmUwY2ZjNzcyZGIyYjdjNzY1ZmY0NGZiYTY4NzZmMDQ3NjY3YWNhNGVkOQ==');
-  const AIRTABLE_BASE_ID  = 'appC3MZIopGzqQDqs';
-  const AIRTABLE_TABLE_ID = 'tblUU7iyKStVLw2BB';
-
-  // ── 필드 ID 매핑 ──
-  const FIELD = {
-    company  : 'fldU0iGxhaxWLX4u1',  // 회사명(브랜드명)
-    name     : 'fldMk68gJHJ5xYs35',  // 담당자명
-    phone    : 'fldFZEo5i7N1cohpQ',  // 연락처
-    email    : 'fld9t4PIXEsvfe1rS',  // 이메일
-    channels : 'fldWgqwXg55pRJcT3',  // 판매채널
-    otherCh  : 'fld8XRKrGNbSFNyfz',  // 기타채널
-    sabang   : 'fldO3cAo0GMSbA8VT',  // 사방넷이용중
-    privacy  : 'fldy86ZmK9QIfR46h',  // 개인정보동의
-    datetime : 'fldyfhL1HOhaMdDqG',  // 신청일시
-  };
+  // ── Google Apps Script 웹앱 URL ──
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycby6tdm0H_swi46-J1o1yt13WKG3tP-JdSxSUVOkDOxouNz5ndib2chYwvRX7D3Qda2d/exec';
 
   // ── 폼 제출 ──
   document.getElementById('consult-form').addEventListener('submit', async function(e) {
@@ -1361,45 +1346,35 @@
                        .map(el => el.value)
                        .filter(v => v !== '기타')
                        .join(', ');
-    const otherCh  = document.getElementById('other-channel').value.trim();
-    const sabang   = document.getElementById('sabangnet').checked;
-    const now      = new Date().toISOString();
+    const otherCh = document.getElementById('other-channel').value.trim();
+    const sabang  = document.getElementById('sabangnet').checked;
 
-    // Airtable에 저장할 필드 구성
-    const fields = {
-      [FIELD.company]  : company,
-      [FIELD.name]     : name,
-      [FIELD.phone]    : phone,
-      [FIELD.email]    : email,
-      [FIELD.channels] : otherCh ? (channels ? channels + ', ' + otherCh : otherCh) : channels,
-      [FIELD.otherCh]  : otherCh,
-      [FIELD.sabang]   : sabang,
-      [FIELD.privacy]  : true,
-      [FIELD.datetime] : now,
+    const payload = {
+      company  : company,
+      name     : name,
+      phone    : phone,
+      email    : email,
+      channels : otherCh ? (channels ? channels + ', ' + otherCh : otherCh) : channels,
+      sabang   : sabang,
+      privacy  : true,
     };
 
     try {
-      const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ records: [{ fields }] }),
+      // GAS는 no-cors 모드로 호출 (CORS 우회 — 저장은 정상 처리됨)
+      await fetch(GAS_URL, {
+        method  : 'POST',
+        mode    : 'no-cors',
+        headers : { 'Content-Type': 'text/plain' },
+        body    : JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error?.message || '저장 오류');
-      }
-
-      // 성공
+      // no-cors는 응답 확인 불가 → 저장 완료로 처리
       document.getElementById('consult-form').style.display = 'none';
       document.getElementById('success-msg').style.display  = 'block';
 
     } catch (err) {
-      console.error('Airtable 오류:', err);
-      alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.\n(' + err.message + ')');
+      console.error('저장 오류:', err);
+      alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
       btn.disabled = false;
       btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2.5 10H17.5M17.5 10L12.5 5M17.5 10L12.5 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 상담 신청하기';
     }
