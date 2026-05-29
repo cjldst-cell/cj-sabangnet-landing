@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJ대한통운 × 사방넷 | 도착보장 풀필먼트 상담 신청</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-deep: #080f2e;
+    --navy-mid: #0d1a4a;
+    --navy-card: #111d57;
+    --navy-card2: #162066;
+    --blue-primary: #2461e8;
+    --blue-bright: #3b7ff5;
+    --blue-glow: #5b9fff;
+    --blue-line: #1e4fc7;
+    --yellow: #f5c842;
+    --white: #ffffff;
+    --white-70: rgba(255,255,255,0.7);
+    --white-40: rgba(255,255,255,0.4);
+    --white-15: rgba(255,255,255,0.15);
+    --white-08: rgba(255,255,255,0.08);
+    --success: #22c55e;
+    --font: 'Noto Sans KR', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--navy-deep);
+    color: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── 배경 패턴 ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 10%, rgba(36,97,232,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(36,97,232,0.12) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── 공통 레이아웃 ── */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  section { padding: 64px 0; }
+
+  /* ── 애니메이션 ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1);   opacity: 0.6; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.22s; }
+  .delay-3 { animation-delay: 0.34s; }
+  .delay-4 { animation-delay: 0.46s; }
+  .delay-5 { animation-delay: 0.58s; }
+
+  /* ────────────────────────────
+     섹션 1 : 히어로
+  ──────────────────────────── */
+  #hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 대각선 장식 */
+  #hero::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-18deg);
+    width: 220px;
+    height: 600px;
+    background: linear-gradient(180deg, rgba(36,97,232,0.25) 0%, rgba(91,159,255,0.08) 100%);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white-08);
+    border: 1px solid var(--white-15);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white-70);
+    margin-bottom: 28px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge span {
+    width: 6px; height: 6px;
+    background: var(--blue-glow);
+    border-radius: 50%;
+    position: relative;
+  }
+  .hero-badge span::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: var(--blue-glow);
+    animation: pulse-ring 1.5s ease-out infinite;
+  }
+
+  .hero-eyebrow {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--blue-glow);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(26px, 6.5vw, 36px);
+    font-weight: 900;
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #5b9fff, #2461e8, #5b9fff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--white-70);
+    margin-bottom: 40px;
+    word-break: keep-all;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-bright));
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(36,97,232,0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: var(--font);
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(36,97,232,0.6);
+  }
+
+  .hero-cta svg { flex-shrink: 0; }
+
+  .hero-divider {
+    margin-top: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--white-15), transparent);
+  }
+
+  /* ────────────────────────────
+     섹션 2 : 핵심 수치
+  ──────────────────────────── */
+  #stats {
+    padding: 56px 0;
+    background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-glow);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    word-break: keep-all;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    color: var(--white-70);
+    margin-bottom: 36px;
+    word-break: keep-all;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    background: var(--navy-card);
+    border: 1px solid var(--white-08);
+    border-top: 2px solid var(--blue-primary);
+    border-radius: 14px;
+    padding: 22px 16px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-3px);
+    border-top-color: var(--blue-glow);
+  }
+
+  .stat-icon { font-size: 22px; margin-bottom: 10px; }
+
+  .stat-num {
+    font-size: clamp(22px, 5.5vw, 30px);
+    font-weight: 900;
+    color: var(--blue-glow);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--white-70);
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+
+  /* ────────────────────────────
+     섹션 3 : Speed vs Certainty
+  ──────────────────────────── */
+  #compare {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--white-08);
+    border-bottom: 1px solid var(--white-08);
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .compare-card {
+    background: var(--navy-card);
+    border-radius: 14px;
+    padding: 22px 18px;
+    border: 1px solid var(--white-08);
+  }
+
+  .compare-card.bad  { border-top: 2px solid #ef4444; }
+  .compare-card.good { border-top: 2px solid var(--success); }
+
+  .compare-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .compare-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .compare-card.bad  .compare-icon { background: rgba(239,68,68,0.15); }
+  .compare-card.good .compare-icon { background: rgba(34,197,94,0.15); }
+
+  .compare-head-text { }
+  .compare-head-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .compare-head-text span {
+    font-size: 11px;
+    color: var(--white-40);
+  }
+
+  .compare-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .compare-items li {
+    font-size: 12px;
+    color: var(--white-70);
+    padding-left: 16px;
+    position: relative;
+    word-break: keep-all;
+    line-height: 1.45;
+  }
+
+  .compare-items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .compare-card.bad  .compare-items li::before { background: #ef4444; }
+  .compare-card.good .compare-items li::before { background: var(--success); }
+
+  .compare-insight {
+    background: linear-gradient(135deg, rgba(36,97,232,0.2), rgba(91,159,255,0.1));
+    border: 1px solid rgba(91,159,255,0.3);
+    border-left: 3px solid var(--blue-bright);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    word-break: keep-all;
+    line-height: 1.55;
+  }
+
+  .compare-insight strong { color: var(--blue-glow); }
+
+  /* 구매심리 3단계 */
+  .purchase-steps {
+    margin-top: 28px;
+    background: var(--navy-card);
+    border: 1px solid var(--white-08);
+    border-radius: 14px;
+    padding: 20px 18px;
+  }
+
+  .purchase-steps-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--white-40);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .steps-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .step-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--blue-primary);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 6px;
+  }
+
+  .step-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--white-40);
+  }
+
+  .step-arrow {
+    font-size: 16px;
+    color: var(--white-40);
+    margin: 0 -4px;
+    margin-bottom: 20px;
+  }
+
+  /* ────────────────────────────
+     섹션 4 : 더풀필 소개
+  ──────────────────────────── */
+  #fulfill {
+    background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+  }
+
+  .fulfill-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .fulfill-badge {
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-bright));
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .fulfill-brand-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white-70);
+  }
+
+  .fulfill-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .fulfill-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--navy-card);
+    border: 1px solid var(--white-08);
+    border-left: 3px solid var(--blue-primary);
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: border-left-color 0.2s;
+  }
+
+  .fulfill-item:hover { border-left-color: var(--blue-glow); }
+
+  .fulfill-item-icon {
+    width: 36px; height: 36px;
+    background: rgba(36,97,232,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .fulfill-item-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .fulfill-item-text span {
+    font-size: 12px;
+    color: var(--white-70);
+    word-break: keep-all;
+  }
+
+  /* 플랫폼 배지들 */
+  .platform-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .platform-chip {
+    background: var(--white-08);
+    border: 1px solid var(--white-15);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--white-70);
+  }
+
+  .fulfill-closing {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white-70);
+    word-break: keep-all;
+    line-height: 1.6;
+  }
+
+  .fulfill-closing strong { color: var(--white); }
+
+  /* ────────────────────────────
+     섹션 5 : 상담 신청 폼
+  ──────────────────────────── */
+  #form-section {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--white-08);
+    padding-bottom: 80px;
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .form-header .section-label { justify-content: center; }
+
+  .form-container {
+    background: var(--navy-card);
+    border: 1px solid var(--white-15);
+    border-radius: 20px;
+    padding: 32px 24px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white-70);
+    margin-bottom: 8px;
+  }
+
+  .form-label .req {
+    color: var(--blue-glow);
+    margin-left: 3px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: var(--white-08);
+    border: 1px solid var(--white-15);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: var(--font);
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .form-input::placeholder { color: var(--white-40); }
+
+  .form-input:focus {
+    border-color: var(--blue-bright);
+    background: rgba(36,97,232,0.08);
+  }
+
+  /* 채널 선택 */
+  .channel-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white-70);
+    margin-bottom: 12px;
+  }
+
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .channel-option {
+    position: relative;
+  }
+
+  .channel-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+  }
+
+  .channel-option label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white-08);
+    border: 1px solid var(--white-15);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--white-70);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .channel-option label::before {
+    content: '';
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--white-40);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    background: transparent;
+  }
+
+  .channel-option input:checked + label {
+    background: rgba(36,97,232,0.18);
+    border-color: var(--blue-bright);
+    color: var(--white);
+  }
+
+  .channel-option input:checked + label::before {
+    background: var(--blue-primary);
+    border-color: var(--blue-primary);
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* 기타 직접 입력 */
+  .other-input-wrap {
+    margin-top: 8px;
+    display: none;
+  }
+
+  .other-input-wrap.show { display: block; }
+
+  /* 사방넷 체크박스 */
+  .sabang-check-wrap {
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.25);
+    border-radius: 10px;
+  }
+
+  .sabang-check-wrap label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yellow);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .sabang-check-wrap input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--yellow);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* 개인정보 동의 박스 */
+  .privacy-wrap {
+    margin-top: 20px;
+    background: var(--white-08);
+    border: 1px solid var(--white-15);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .privacy-detail {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--white-08);
+  }
+
+  .privacy-detail-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white-70);
+    margin-bottom: 12px;
+  }
+
+  .privacy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .privacy-table tr {
+    border-bottom: 1px solid var(--white-08);
+  }
+
+  .privacy-table tr:last-child { border-bottom: none; }
+
+  .privacy-table th {
+    text-align: left;
+    padding: 7px 10px 7px 0;
+    color: var(--white-40);
+    font-weight: 500;
+    white-space: nowrap;
+    vertical-align: top;
+    width: 72px;
+  }
+
+  .privacy-table td {
+    padding: 7px 0;
+    color: var(--white-70);
+    line-height: 1.5;
+    word-break: keep-all;
+  }
+
+  .privacy-notice {
+    padding: 10px 18px;
+    font-size: 11px;
+    color: var(--white-40);
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .privacy-agree-row {
+    padding: 14px 18px;
+    background: rgba(36,97,232,0.08);
+    border-top: 1px solid rgba(36,97,232,0.2);
+  }
+
+  .privacy-agree-row label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .privacy-agree-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--blue-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .privacy-req-tag {
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--blue-primary);
+    color: var(--white);
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+
+  /* 구분선 */
+  .form-divider {
+    height: 1px;
+    background: var(--white-08);
+    margin: 24px 0;
+  }
+
+  /* 제출 버튼 */
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-bright));
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 17px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 28px rgba(36,97,232,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(36,97,232,0.55);
+  }
+
+  .submit-btn:active { transform: translateY(0); }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* 완료 메시지 */
+  #success-msg {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  #success-msg .success-icon {
+    width: 64px; height: 64px;
+    background: rgba(34,197,94,0.15);
+    border: 2px solid var(--success);
+    border-radius: 50%;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  #success-msg h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  #success-msg p {
+    font-size: 14px;
+    color: var(--white-70);
+    word-break: keep-all;
+    line-height: 1.6;
+  }
+
+  /* ── 푸터 ── */
+  footer {
+    background: var(--navy-deep);
+    border-top: 1px solid var(--white-08);
+    padding: 28px 0;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--white-40);
+    line-height: 1.7;
+  }
+
+  footer strong { color: var(--white-70); }
+
+  /* ── 스크롤 인디케이터 ── */
+  .scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 44px;
+    animation: fadeIn 1.2s ease 1s both;
+  }
+
+  .scroll-indicator span {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--white-40);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(180deg, var(--white-40), transparent);
+    animation: fadeIn 0.6s ease 1.5s both;
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .stat-card { padding: 16px 10px; }
+    .stat-num { font-size: 20px; }
+    .channel-grid { grid-template-columns: 1fr 1fr; }
+    .compare-grid { grid-template-columns: 1fr 1fr; }
+    .steps-row { gap: 0; }
+    .step-name { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════
+     섹션 1 : 히어로
+════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-badge fade-up">
+      <span></span>
+      CJ대한통운 × 사방넷 세미나
+    </div>
+
+    <p class="hero-eyebrow fade-up delay-1">THE FULFILL — 모두를 위한 단 하나의 풀필먼트</p>
+
+    <h1 class="hero-title fade-up delay-2">
+      왜 고객은<br>
+      <em>'내일도착'</em>보다<br>
+      <em>'정확한 도착'</em>에<br>
+      더 반응할까?
+    </h1>
+
+    <p class="hero-sub fade-up delay-3">
+      구매전환율을 높이는 데이터 기반 풀필먼트 전략
+    </p>
+
+    <a href="#form-section" class="hero-cta fade-up delay-4">
+      지금 바로 상담 신청하기
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 3.75L9 14.25M9 14.25L4.5 9.75M9 14.25L13.5 9.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <div class="scroll-indicator">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     섹션 2 : 핵심 수치
+════════════════════════════ -->
+<section id="stats">
+  <div class="container">
+    <p class="section-label">숫자로 증명된 효과</p>
+    <h2 class="section-title">도착보장 도입 후 달라지는<br>셀러의 비즈니스</h2>
+    <p class="section-sub">도착보장 뱃지 부착 후 실제 셀러 데이터 기준</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-num">+41.3%</div>
+        <div class="stat-label">구매전환율 상승<br>(패션/리빙 최대 68%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔁</div>
+        <div class="stat-num">+32%</div>
+        <div class="stat-label">재구매율 상승<br>고객 충성도 증가</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-num">6배</div>
+        <div class="stat-label">리뷰 증가<br>도입 1개월 기준</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;">
+      <div class="stat-card" style="display:flex; align-items:center; gap:16px; text-align:left; padding:18px 20px;">
+        <div class="stat-icon" style="margin:0; font-size:26px;">🚀</div>
+        <div>
+          <div class="stat-num" style="font-size:22px; text-align:left;">1,161%</div>
+          <div class="stat-label" style="text-align:left;">오픈 3개월 성장률 — 신생 브랜드도 즉시 배송 경쟁력 확보 가능 <span style="color:rgba(255,255,255,0.3); font-size:10px;">※ 특정 브랜드사 수치</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     섹션 3 : Speed vs Certainty
+════════════════════════════ -->
+<section id="compare">
+  <div class="container">
+    <p class="section-label">셀러가 알아야 할 인사이트</p>
+    <h2 class="section-title">'속도'는 유혹하지만<br>'확신'은 결제하게 한다</h2>
+    <p class="section-sub">고객의 구매 결정을 만드는 건 빠름이 아닌 '통제권'입니다</p>
+
+    <div class="compare-grid">
+      <div class="compare-card bad">
+        <div class="compare-head">
+          <div class="compare-icon">⚡</div>
+          <div class="compare-head-text">
+            <strong>Speed<br>내일도착</strong>
+            <span>빠른 배송, 불확실한 도착</span>
+          </div>
+        </div>
+        <ul class="compare-items">
+          <li>막연한 기대 심리</li>
+          <li>언제 올지 몰라 불안</li>
+          <li>약속 미이행 시 신뢰 급락</li>
+        </ul>
+      </div>
+
+      <div class="compare-card good">
+        <div class="compare-head">
+          <div class="compare-icon">🛡</div>
+          <div class="compare-head-text">
+            <strong>Certainty<br>도착보장</strong>
+            <span>정확한 배송, 통제권 제공</span>
+          </div>
+        </div>
+        <ul class="compare-items">
+          <li>배송 일정에 맞춰 계획 가능</li>
+          <li>장바구니→결제 전환 촉진</li>
+          <li>지연 시 보상으로 신뢰 유지</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="compare-insight">
+      배송을 고객 일상에 맞추는 <strong>통제권(Control)</strong>이 있어야<br>
+      결제로 이어집니다. 단순 속도 경쟁은 한계가 있습니다.
+    </div>
+
+    <div class="purchase-steps">
+      <p class="purchase-steps-title">고객 구매심리 3단계</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-name">발견</div>
+          <div class="step-desc">내일 온대! 호감</div>
+        </div>
+        <div class="step-arrow">›</div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-name">검증</div>
+          <div class="step-desc">진짜 올까? 의구심</div>
+        </div>
+        <div class="step-arrow">›</div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-name">확정</div>
+          <div class="step-desc">100% 보장 → 결제</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     섹션 4 : 더풀필 소개
+════════════════════════════ -->
+<section id="fulfill">
+  <div class="container">
+    <p class="section-label">CJ대한통운 솔루션</p>
+    <h2 class="section-title">검증된 파트너와 함께<br>도착보장을 시작하세요</h2>
+    <p class="section-sub">배송의 확신이 구매의 확신이 됩니다</p>
+
+    <div class="fulfill-brand">
+      <div class="fulfill-badge">THE FULFILL</div>
+      <div class="fulfill-brand-name">CJ대한통운 e-Fulfillment</div>
+    </div>
+
+    <div class="fulfill-features">
+      <div class="fulfill-item">
+        <div class="fulfill-item-icon">🏭</div>
+        <div class="fulfill-item-text">
+          <strong>주문연동 → 포장 → 배송 One-Stop 자동화</strong>
+          <span>멀티채널 재고를 하나의 센터에서 통합 관리, 재고 이원화 비용 절감</span>
+        </div>
+      </div>
+      <div class="fulfill-item">
+        <div class="fulfill-item-icon">📦</div>
+        <div class="fulfill-item-text">
+          <strong>도착보장 서비스 전 플랫폼 운영</strong>
+          <span>네이버 N배송 · G마켓 스타배송 · 11번가 슈팅배송 모두 CJ대한통운이 지원</span>
+        </div>
+      </div>
+      <div class="fulfill-item">
+        <div class="fulfill-item-icon">📊</div>
+        <div class="fulfill-item-text">
+          <strong>데이터 기반 재고 최적화</strong>
+          <span>실시간 멀티채널 데이터 통합으로 품절 방지, 판매기회 극대화</span>
+        </div>
+      </div>
+      <div class="fulfill-item">
+        <div class="fulfill-item-icon">🌱</div>
+        <div class="fulfill-item-text">
+          <strong>신생 브랜드도 즉시 배송 경쟁력 확보</strong>
+          <span>안정적 Capa와 확장성을 갖춘 전문 물류 인프라</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:12px; color:var(--white-40); margin-bottom:10px;">도착보장 지원 플랫폼</p>
+    <div class="platform-row">
+      <span class="platform-chip">🛒 네이버 N배송</span>
+      <span class="platform-chip">🟡 G마켓 스타배송</span>
+      <span class="platform-chip">🔴 11번가 슈팅배송</span>
+    </div>
+
+    <p class="fulfill-closing" style="margin-top:32px;">
+      <strong>풀필먼트는 끝이 아니라 새로운 성장의 시작입니다</strong><br>
+      CJ대한통운과 함께 귀사의 1등 스토리를 만드세요
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     섹션 5 : 상담 신청 폼
+════════════════════════════ -->
+<section id="form-section">
+  <div class="container">
+    <div class="form-header">
+      <p class="section-label">상담 신청</p>
+      <h2 class="section-title">지금 바로 상담 신청하세요</h2>
+      <p class="section-sub">담당자가 빠르게 연락드리겠습니다</p>
+    </div>
+
+    <div class="form-container">
+
+      <!-- 폼 -->
+      <form id="consult-form" novalidate>
+
+        <div class="form-group">
+          <label class="form-label" for="company">회사명 (브랜드명)<span class="req">*</span></label>
+          <input class="form-input" type="text" id="company" name="company" placeholder="예) (주)스마트셀러" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="name">담당자명<span class="req">*</span></label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="예) 홍길동" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">연락처<span class="req">*</span></label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="예) 010-1234-5678" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">이메일<span class="req">*</span></label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="예) hello@brand.co.kr" required>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- 판매 채널 -->
+        <div class="form-group">
+          <span class="channel-label">현재 판매 채널 <span style="color:var(--white-40); font-weight:400;">(복수 선택 가능)</span></span>
+          <div class="channel-grid">
+            <div class="channel-option">
+              <input type="checkbox" id="ch-naver" name="channels" value="네이버 스마트스토어">
+              <label for="ch-naver">네이버 스마트스토어</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-coupang" name="channels" value="쿠팡">
+              <label for="ch-coupang">쿠팡</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-gmarket" name="channels" value="지마켓">
+              <label for="ch-gmarket">지마켓</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-11st" name="channels" value="11번가">
+              <label for="ch-11st">11번가</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-own" name="channels" value="자사몰">
+              <label for="ch-own">자사몰</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-ohouse" name="channels" value="오늘의집">
+              <label for="ch-ohouse">오늘의집</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-olive" name="channels" value="올리브영">
+              <label for="ch-olive">올리브영</label>
+            </div>
+            <div class="channel-option">
+              <input type="checkbox" id="ch-other" name="channels" value="기타">
+              <label for="ch-other">기타 (직접 입력)</label>
+            </div>
+          </div>
+
+          <!-- 기타 직접 입력 -->
+          <div class="other-input-wrap" id="other-wrap">
+            <input class="form-input" type="text" id="other-channel" placeholder="판매 채널을 입력해주세요">
+          </div>
+        </div>
+
+        <!-- 사방넷 체크 -->
+        <div class="sabang-check-wrap">
+          <label>
+            <input type="checkbox" id="sabangnet" name="sabangnet">
+            사방넷 이용 중입니다
+          </label>
+        </div>
+
+        <!-- 개인정보 수집 및 이용 동의 -->
+        <div class="privacy-wrap" style="margin-top:24px;">
+          <div class="privacy-detail">
+            <p class="privacy-detail-title">개인정보 수집 및 이용 동의</p>
+            <table class="privacy-table">
+              <tr>
+                <th>수집항목</th>
+                <td>회사명(브랜드명), 담당자명, 연락처, 이메일</td>
+              </tr>
+              <tr>
+                <th>수집목적</th>
+                <td>물류 서비스 상담 및 제안 안내</td>
+              </tr>
+              <tr>
+                <th>보관기간</th>
+                <td>수집일로부터 1년</td>
+              </tr>
+            </table>
+          </div>
+          <p class="privacy-notice">
+            동의를 거부할 권리가 있으며, 거부 시 상담 신청이 제한될 수 있습니다.
+          </p>
+          <div class="privacy-agree-row">
+            <label>
+              <input type="checkbox" id="privacy-agree" name="privacy-agree">
+              개인정보 수집 및 이용에 동의합니다.
+              <span class="privacy-req-tag">필수</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M2.5 10H17.5M17.5 10L12.5 5M17.5 10L12.5 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          상담 신청하기
+        </button>
+
+        <p style="text-align:center; font-size:11px; color:var(--white-40); margin-top:14px; line-height:1.6; word-break:keep-all;">
+          입력하신 정보는 상담 목적으로만 활용되며 외부에 공유되지 않습니다.
+        </p>
+      </form>
+
+      <!-- 완료 메시지 -->
+      <div id="success-msg">
+        <div class="success-icon">✅</div>
+        <h3>상담 신청이 완료되었습니다!</h3>
+        <p>소중한 신청 감사합니다.<br>담당자가 빠르게 연락드리겠습니다. 😊</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     푸터
+════════════════════════════ -->
+<footer>
+  <div class="container">
+    <p>
+      <strong>CJ대한통운 e-Fulfillment</strong><br>
+      THE FULFILL — 모두를 위한 단 하나의 풀필먼트
+    </p>
+  </div>
+</footer>
+
+<script>
+  // 기타 채널 입력란 토글
+  document.getElementById('ch-other').addEventListener('change', function() {
+    const wrap = document.getElementById('other-wrap');
+    wrap.classList.toggle('show', this.checked);
+    if (!this.checked) document.getElementById('other-channel').value = '';
+  });
+
+  // 연락처 자동 포맷
+  document.getElementById('phone').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length <= 3) this.value = v;
+    else if (v.length <= 7) this.value = v.slice(0,3) + '-' + v.slice(3);
+    else this.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
+  });
+
+  // ── Airtable 설정 ──
+  const AIRTABLE_TOKEN    = 'AIRTABLE_PAT_TOKEN_HERE';
+  const AIRTABLE_BASE_ID  = 'appC3MZIopGzqQDqs';
+  const AIRTABLE_TABLE_ID = 'tblUU7iyKStVLw2BB';
+
+  // ── 필드 ID 매핑 ──
+  const FIELD = {
+    company  : 'fldU0iGxhaxWLX4u1',  // 회사명(브랜드명)
+    name     : 'fldMk68gJHJ5xYs35',  // 담당자명
+    phone    : 'fldFZEo5i7N1cohpQ',  // 연락처
+    email    : 'fld9t4PIXEsvfe1rS',  // 이메일
+    channels : 'fldWgqwXg55pRJcT3',  // 판매채널
+    otherCh  : 'fld8XRKrGNbSFNyfz',  // 기타채널
+    sabang   : 'fldO3cAo0GMSbA8VT',  // 사방넷이용중
+    privacy  : 'fldy86ZmK9QIfR46h',  // 개인정보동의
+    datetime : 'fldyfhL1HOhaMdDqG',  // 신청일시
+  };
+
+  // ── 폼 제출 ──
+  document.getElementById('consult-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const company = document.getElementById('company').value.trim();
+    const name    = document.getElementById('name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('email').value.trim();
+
+    // 필수 값 체크
+    if (!company || !name || !phone || !email) {
+      alert('필수 항목을 모두 입력해주세요.');
+      return;
+    }
+
+    // 이메일 형식 체크
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('이메일 주소를 올바르게 입력해주세요.');
+      return;
+    }
+
+    // 개인정보 동의 체크
+    if (!document.getElementById('privacy-agree').checked) {
+      alert('개인정보 수집 및 이용에 동의해주세요.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="white" stroke-width="3" stroke-linecap="round"/></svg> 저장 중...';
+
+    // 채널 수집
+    const channels = [...document.querySelectorAll('input[name="channels"]:checked')]
+                       .map(el => el.value)
+                       .filter(v => v !== '기타')
+                       .join(', ');
+    const otherCh  = document.getElementById('other-channel').value.trim();
+    const sabang   = document.getElementById('sabangnet').checked;
+    const now      = new Date().toISOString();
+
+    // Airtable에 저장할 필드 구성
+    const fields = {
+      [FIELD.company]  : company,
+      [FIELD.name]     : name,
+      [FIELD.phone]    : phone,
+      [FIELD.email]    : email,
+      [FIELD.channels] : otherCh ? (channels ? channels + ', ' + otherCh : otherCh) : channels,
+      [FIELD.otherCh]  : otherCh,
+      [FIELD.sabang]   : sabang,
+      [FIELD.privacy]  : true,
+      [FIELD.datetime] : now,
+    };
+
+    try {
+      const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ records: [{ fields }] }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error?.message || '저장 오류');
+      }
+
+      // 성공
+      document.getElementById('consult-form').style.display = 'none';
+      document.getElementById('success-msg').style.display  = 'block';
+
+    } catch (err) {
+      console.error('Airtable 오류:', err);
+      alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.\n(' + err.message + ')');
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2.5 10H17.5M17.5 10L12.5 5M17.5 10L12.5 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 상담 신청하기';
+    }
+  });
+
+  // 로딩 스피너 CSS
+  const spinStyle = document.createElement('style');
+  spinStyle.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+  document.head.appendChild(spinStyle);
+
+  // 스크롤 애니메이션 (IntersectionObserver)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-up');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-card, .compare-card, .fulfill-item, .purchase-steps')
+    .forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
