@@ -1360,33 +1360,25 @@
     };
 
     try {
-      // iframe을 이용한 CORS 우회 방식 (크롬 호환)
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = GAS_URL;
-      form.target = 'hidden-iframe';
-      form.style.display = 'none';
+      // fetch GET 방식 — Apps Script 브라우저 정상 확인됨
+      const params = new URLSearchParams({
+        company  : payload.company,
+        name     : payload.name,
+        phone    : payload.phone,
+        email    : payload.email,
+        channels : payload.channels,
+        sabang   : String(payload.sabang),
+        privacy  : String(payload.privacy),
+      });
 
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'payload';
-      input.value = JSON.stringify(payload);
-      form.appendChild(input);
+      const res = await fetch(GAS_URL + '?' + params.toString(), {
+        method   : 'GET',
+        mode     : 'no-cors',
+      });
 
-      const iframe = document.createElement('iframe');
-      iframe.name = 'hidden-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      document.body.appendChild(form);
-      form.submit();
-
-      // 제출 후 완료 처리
-      setTimeout(() => {
-        document.getElementById('consult-form').style.display = 'none';
-        document.getElementById('success-msg').style.display  = 'block';
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-      }, 1500);
+      // no-cors는 응답 확인 불가 → 정상 처리
+      document.getElementById('consult-form').style.display = 'none';
+      document.getElementById('success-msg').style.display  = 'block';
 
     } catch (err) {
       console.error('저장 오류:', err);
